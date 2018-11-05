@@ -1,0 +1,19 @@
+{
+  "name": "meal-kit-app",
+  "version": "1.0.0",
+  "description": "ingredient-and-recipe meal kit service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeZijunZhou/meal-kit-app.git"
+  },
+  "author": "Zijun Zhou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoeZijunZhou/meal-kit-app/issues"
+  },
+  "homepage": "https://github.com/JoeZijunZhou/meal-kit-app#readme"
+}
