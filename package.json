@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/JoeZijunZhou/meal-kit-app#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
