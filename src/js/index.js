@@ -4,28 +4,32 @@
 // console.log(`I imported ${a(ID, 2)} and ${m(3,5)} and ${str} from models and views`);
 
 import Search from './models/Search';
+import * as searchView from './views/searchView';
+import { elements } from './views/base';
 
 const state = {};
 
 const controlSearch = async () => {
   // get query from view
-  const query = 'pizza';
+  const query = searchView.getInput();
 
   if (query) {
     // new search obj and add to state
     state.search = new Search(query);
-    // UI setup
-
+    // clear input field & previous search UI setup
+    searchView.clearInput();
+    searchView.clearResults();
     // search recipes
     await state.search.getResults();
     // display result UI
     console.log(state);
     console.log(state.search.result);
+    searchView.renderResults(state.search.result);
   }
 }
 
 
-document.querySelector('.search').addEventListener('submit', event => {
+elements.searchForm.addEventListener('submit', event => {
   event.preventDefault();
   controlSearch();
 });
