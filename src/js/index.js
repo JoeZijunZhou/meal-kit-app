@@ -7,8 +7,10 @@ import Search from './models/Search';
 import * as searchView from './views/searchView';
 import { elements } from './views/base';
 
+// state object - store events states
 const state = {};
 
+// search controller
 const controlSearch = async () => {
   // get query from view
   const query = searchView.getInput();
@@ -28,7 +30,7 @@ const controlSearch = async () => {
   }
 }
 
-
+// search event handler/listener
 elements.searchForm.addEventListener('submit', event => {
   event.preventDefault();
   controlSearch();

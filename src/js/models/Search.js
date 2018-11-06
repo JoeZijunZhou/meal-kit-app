@@ -1,10 +1,13 @@
 import axios from 'axios';
 
+// search class
 export default class Search {
   constructor(query) {
+    // query - search field input
     this.query = query;
   }
   // define methods
+  // get recipes API results
   async getResults() {
     const key = '38a57c95216d214967ff5f785575a072';
     try {
