@@ -37,3 +37,18 @@ elements.searchForm.addEventListener('submit', event => {
   event.preventDefault();
   controlSearch();
 });
+
+// page prev next event handler/listener
+elements.searchResPages.addEventListener('click', event => {
+  const btn = event.target.closest('.btn-inline');
+  if (btn) {
+    // btn trigger goto page number
+    const goToPage = parseInt(btn.dataset.goto, 10);
+    // clear old page
+    searchView.clearResults();
+    // render new page
+    searchView.renderResults(state.search.result, goToPage);
+    console.log(goToPage);
+
+  }
+});

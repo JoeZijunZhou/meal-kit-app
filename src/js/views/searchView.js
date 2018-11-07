@@ -15,6 +15,7 @@ export const clearInput = () => {
 // clear recipes results list method
 export const clearResults = () => {
   elements.searchResList.innerHTML = "";
+  elements.searchResPages.innerHTML = "";
 };
 
 // one line title omit the rest
@@ -51,7 +52,41 @@ const renderRecipe = recipe => {
 
 };
 
+// create single button UI - private method
+const createButton = (page, type) => `
+  <button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+      <svg class="search__icon">
+          <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
+      </svg>
+      <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+  </button>
+`;
+
+// render button for each page - private method
+const renderButtons = (page, numResults, resPerPage) => {
+  const pages = Math.ceil(numResults / resPerPage);
+
+  let button;
+  if (page === 1 && pages > 1) { // next button
+    button = createButton(page, 'next');
+  } else if (page < pages) { // two buttons
+    button = `
+      ${createButton(page, 'prev')}
+      ${createButton(page, 'next')}
+    `;
+  } else if (page === pages && pages > 1) { // pre button
+    button = createButton(page, 'prev');
+  }
+  elements.searchResPages.insertAdjacentHTML('afterbegin', button);
+};
+
 // render recipes results list method
-export const renderResults = recipes => {
-  recipes.forEach(renderRecipe);
+export const renderResults = (recipes, page = 1, resPerPage = 10) => {
+  // pagination
+  const start = (page - 1) * resPerPage;
+  const end = page * resPerPage;
+
+  // each page (subarray) iterate
+  recipes.slice(start, end).forEach(renderRecipe);
+  renderButtons(page, recipes.length, resPerPage);
 };
