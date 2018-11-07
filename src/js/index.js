@@ -4,6 +4,7 @@
 // console.log(`I imported ${a(ID, 2)} and ${m(3,5)} and ${str} from models and views`);
 
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
@@ -52,3 +53,9 @@ elements.searchResPages.addEventListener('click', event => {
 
   }
 });
+
+
+// recipe controller
+const r = new Recipe(46956);
+r.getRecipe();
+console.log(r);
