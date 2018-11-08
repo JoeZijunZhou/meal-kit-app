@@ -154,8 +154,6 @@ elements.shopping.addEventListener('click', e => {
 /**
  * like controller
  */
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getNumLikes());
 
 const controlLike = () => {
   // new like data model if not exist
@@ -192,6 +190,19 @@ const controlLike = () => {
   // toggle like menu icon
   likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
+
+// restore liked recipes on page load/refresh
+window.addEventListener('load', () => {
+  // restore likes object
+  state.likes = new Likes();
+  state.likes.readStorage();
+
+  // toggle like menu btn
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+  // render like item in the likes list
+  state.likes.likes.forEach(like => likes.renderLike(like));
+});
 
 // recipe servings +/- event handler/listener
 // add to shopping list event handler/listener
