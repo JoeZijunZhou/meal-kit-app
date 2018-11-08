@@ -18,11 +18,11 @@ export const renderItem = item => {
     </li>
   `;
   elements.shopping.insertAdjacentHTML('beforeend', markup);
-}
+};
 
 // delete item method
 export const deleteItem = id => {
-  const item = document.querySelector(`[data-itemid="${item.id}"]`);
+  const item = document.querySelector(`[data-itemid="${id}"]`);
   if (item) {
     item.parentElement.removeChild(item);
   }
