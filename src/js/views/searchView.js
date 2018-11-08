@@ -24,11 +24,11 @@ export const highlightSelected = id => {
   resultsArr.forEach(el => {
     el.classList.remove('results__link--active');
   });
-  document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+  document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
 };
 
-// one line title omit the rest
-const limitRecipeTitle = (title, limit = 17) => {
+// one line title omit the rest - public method
+export const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];
   if (title.length > limit) {
     title.split(' ').reduce((acc, cur) => {

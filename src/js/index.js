@@ -10,14 +10,15 @@ import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
+import * as likesView from './views/likesView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 // state object - store events states
 const state = {};
 
 /**
-* search controller
-*/
+ * search controller
+ */
 const controlSearch = async () => {
   // get query from view
   const query = searchView.getInput();
@@ -69,8 +70,8 @@ elements.searchResPages.addEventListener('click', event => {
 
 
 /**
-* recipe controller
-*/
+ * recipe controller
+ */
 // const r = new Recipe(46956);
 // r.getRecipe();
 // console.log(r);
@@ -100,7 +101,7 @@ const controlRecipe = async () => {
       // render recipe UI
       console.log(state.recipe);
       clearLoader();
-      recipeView.renderRecipe(state.recipe);
+      recipeView.renderRecipe(state.recipe, state.likes.isLiked(id));
 
     } catch (e) {
       alert(`Error processing recipe: ${e}`);
@@ -115,8 +116,8 @@ const controlRecipe = async () => {
 
 
 /**
-* list controller
-*/
+ * list controller
+ */
 const controlList = () => {
   // new list data model if not exist
   if (!state.list) {
@@ -151,8 +152,11 @@ elements.shopping.addEventListener('click', e => {
 
 
 /**
-* like controller
-*/
+ * like controller
+ */
+state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getNumLikes());
+
 const controlLike = () => {
   // new like data model if not exist
   if (!state.likes) {
@@ -160,6 +164,7 @@ const controlLike = () => {
   }
   const currentID = state.recipe.id;
 
+  // update like for this recipe
   if (!state.likes.isLiked(currentID)) { // not like -> like
     // add like to state
     const newLike = state.likes.addLike(
@@ -169,17 +174,23 @@ const controlLike = () => {
       state.recipe.img
     );
     // toggle like btn
-
-    // add like to list UI
+    likesView.toggleLikeBtn(true);
+    // add like item to list UI
     console.log(state.likes);
+    likesView.renderLike(newLike);
+
   } else { // like -> not like
     // remove like to state
     const newLike = state.likes.deleteLike(currentID);
     // toggle like btn
-
-    // remove like to list UI
+    likesView.toggleLikeBtn(false);
+    // remove like item to list UI
     console.log(state.likes);
+    likesView.deleteLike(currentID);
+
   }
+  // toggle like menu icon
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 
 // recipe servings +/- event handler/listener
