@@ -9,6 +9,7 @@ export const clearRecipe = () => {
 // format count nums
 const formatCount = count => {
   if (count) {
+    const newCount = Math.round(count * 10000) / 10000; // infinite floating num error
     const [int, dec]  = count.toString().split('.').map(el => parseInt(el, 10));
 
     if (!dec) {
